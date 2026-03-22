@@ -1,20 +1,33 @@
+// Point d'entrée de l'application CarRentSport
+// Providers : Auth + React Query + NativeWind + Notifications
+
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './src/context/AuthContext';
+import { queryClient } from './src/config/queryClient';
+import AppNavigator from './src/navigation/AppNavigator';
+import { setupNotificationHandler, requestNotificationPermissions } from './src/services/notificationService';
+import './global.css';
+
+// Configurer le handler de notifications au démarrage
+setupNotificationHandler();
 
 export default function App() {
+  useEffect(() => {
+    // Demander les permissions de notification
+    requestNotificationPermissions();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <NavigationContainer>
+          <StatusBar style="dark" />
+          <AppNavigator />
+        </NavigationContainer>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -2,7 +2,7 @@
   "expo": {
     "name": "carRentSport",
     "slug": "carRentSport",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,15 +12,32 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoiZXdlbjAxIiwiYSI6ImNtbHFnYmlkczAwZmwza3F3MGN4dHVxd3cifQ.fBAkWJo_TmBiCSuhn4pHqw"
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "CarRentSport a besoin de votre position pour afficher les agences proches."
+      },
+      "bundleIdentifier": "com.anonymous.carRentSport"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
